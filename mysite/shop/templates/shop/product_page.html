@@ -1,0 +1,27 @@
+{% extends 'shop/base.html' %}
+
+{% block content %}
+    <div class="thing_page">
+        <div>
+            <div>
+                <h2>{{ thing.title }}</h2>
+                <img src="{{ thing.photo.url }}">
+            </div>
+            <div class="specification">
+                <h2>Характеристики</h2>
+                <p>Товар произведен компанией {{ thing.manufactured }}.</p>
+                <p>Дата добавления на склад: {{ thing.date_of_addition }}.</p>
+                <p>Товар относится к категории {{ thing.cat }}.</p>
+                <p>Цена на товар составляет {{ thing.price }} гривен.</p>
+                <div id="buy_area">
+                    <b>{{ thing.price }} ₴</b>
+                    <button>Купить</button>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h2>Описание</h2>
+            <p>{{ thing.description }}</p>
+        </div>
+    </div>
+{% endblock %}

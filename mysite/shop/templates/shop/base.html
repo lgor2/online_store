@@ -1,0 +1,67 @@
+{% load static %}
+{% load shop_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link type="text/css" rel="stylesheet" href="{% static 'shop/css/styles.css' %}">
+</head>
+<body>
+<div class="wrapper">
+    <div class="main">
+        <div class="header">
+            <div class="logo">
+                <a href="{% url 'home' %}"><img src="{% static 'shop/images/logo.png' %}" alt="Логотип сайта" width="100px"></a>
+            </div>
+            <div class="search_input">
+                <form action="{% url 'home' %}">
+                    <input id="search" type="search" placeholder="Я хочу найти..." aria-label="Search" name="search"><button id="search-button" type="submit">Поиск</button>
+                </form>
+            </div>
+            <div class="menu">
+                <ul>
+                    {% for item in menu %}
+                    <li><a href="{% url item.url_name %}">{{ item.title }}</a></li>
+                    {% endfor %}
+                    {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'home' %}">{{ user.username }}</a></li>
+                    <li><a href="{% url 'logout' %}">Выйти</a></li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}">Вход</a></li>
+                    <li><a href="{% url 'register' %}">Регистрация</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <div class="ad">
+            <img src="{% static 'shop/images/ad.png' %}">
+        </div>
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+            {% if title == 'Главная' or 'Категория' in title %}
+            {% show_categories %}
+            <div class="goods">
+                {% for product in products %}
+                    <div class="thing">
+                        {% if product.photo %}
+				            <p><img src="{{ product.photo.url }}"></p>
+                        {% endif %}
+                        <a href="{% url 'thing' product.slug %}">{{ product.title|slice:":18" }}</a>
+                        <form action="{% url 'thing' product.slug %}">
+                            <button>Купить</button>
+                        </form>
+                    </div>
+                {% endfor %}
+
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; 2021 Частичное или полное копирование информации с данного сайта для распространения на других ресурсах, в том числе и бумажных, строго запрещено.</p>
+    </div>
+</div>
+</body>
+</html>
