@@ -2,7 +2,7 @@
 
 2. Install all required modules "pip install -r requirements.txt".
 
-3. Change dirrectory to mysite "cd mysite".
+3. Change directory to mysite "cd mysite".
 
 4. Apply the migrations "python3 manage.py migrate".
 
